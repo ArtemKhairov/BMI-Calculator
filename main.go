@@ -1,16 +1,22 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"math"
 )
 
+const BMIPow = 2
+
 func main() {
 	fmt.Println("Body mass index calculator")
 	for {
-		const BMIPow = 2
 		userHeight, userWeight := getUserParams()
-		BMI := calculateBMI(userHeight, userWeight, BMIPow)
+		BMI, err := calculateBMI(userHeight, userWeight, BMIPow)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
 		bmiClassification := classifyBMI(BMI)
 		fmt.Println(bmiClassification)
 		result := fmt.Sprintf("Your body mass index: %.0f", BMI)
@@ -43,8 +49,11 @@ func classifyBMI(bmi float64) string {
 	}
 }
 
-func calculateBMI(userHeight, userWeight, BMIPow float64) float64 {
-	return userWeight / math.Pow(userHeight, BMIPow)
+func calculateBMI(userHeight, userWeight, BMIPow float64) (float64, error) {
+	if userHeight <= 0 || userWeight <= 0 {
+		return 0, errors.New("Height or Weight is not correct")
+	}
+	return userWeight / math.Pow(userHeight, BMIPow), nil
 }
 
 func getUserParams() (float64, float64) {
