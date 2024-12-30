@@ -7,8 +7,14 @@ import (
 
 func main() {
 	const BMIPow = 2
-	userHeight := 1.8
-	userWeight := 75.0
+	var userHeight float64
+	var userWeight float64
+	fmt.Println("Body mass index calculator")
+	fmt.Print("Введите рост:")
+	fmt.Scan(&userHeight)
+	fmt.Print("Введите вес:")
+	fmt.Scan(&userWeight)
 	BMI := userWeight / math.Pow(userHeight, BMIPow)
-	fmt.Print(BMI)
+	result := fmt.Sprintf("Ваш индекс массы тела: %.0f", BMI)
+	fmt.Print(result)
 }
