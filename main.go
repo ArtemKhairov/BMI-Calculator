@@ -14,8 +14,9 @@ func main() {
 		userHeight, userWeight := getUserParams()
 		BMI, err := calculateBMI(userHeight, userWeight, BMIPow)
 		if err != nil {
-			fmt.Println(err)
-			continue
+			// fmt.Println(err)
+			// continue
+			panic("Critical Error")
 		}
 		bmiClassification := classifyBMI(BMI)
 		fmt.Println(bmiClassification)
