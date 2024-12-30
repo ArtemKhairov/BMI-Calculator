@@ -6,14 +6,20 @@ import (
 )
 
 func main() {
-	const BMIPow = 2
 	fmt.Println("Body mass index calculator")
-	userHeight, userWeight := getUserParams()
-	BMI := calculateBMI(userHeight, userWeight, BMIPow)
-	bmiClassification := classifyBMI(BMI)
-	fmt.Println(bmiClassification)
-	result := fmt.Sprintf("Your body mass index: %.0f", BMI)
-	fmt.Print(result)
+	for {
+		const BMIPow = 2
+		userHeight, userWeight := getUserParams()
+		BMI := calculateBMI(userHeight, userWeight, BMIPow)
+		bmiClassification := classifyBMI(BMI)
+		fmt.Println(bmiClassification)
+		result := fmt.Sprintf("Your body mass index: %.0f", BMI)
+		fmt.Println(result)
+		isRepeate := checkRepeateCalculation()
+		if !isRepeate {
+			break
+		}
+	}
 }
 
 func classifyBMI(bmi float64) string {
@@ -49,4 +55,14 @@ func getUserParams() (float64, float64) {
 	fmt.Print("Enter your weight:")
 	fmt.Scan(&userWeight)
 	return userHeight, userWeight
+}
+
+func checkRepeateCalculation() bool {
+	var userChoice string
+	fmt.Println("Do you want to repeate? y/n:")
+	fmt.Scan(&userChoice)
+	if userChoice == "Y" || userChoice == "y" {
+		return true
+	}
+	return false
 }
